@@ -1,222 +1,61 @@
-/* ฟอนต์ระบบเพื่อความคมชัดและเบาเร็ว */
-:root {
-    --bg: radial-gradient(1200px 800px at 50% -10%, #fff0f6 0%, #ffe3ef 35%, #ffd1ea 60%, #ffc2e0 85%, #ffb3d6 100%);
-    --text: #332233;
-    --accent: #ff6fa9;
-    --accent-2: #7ad7ff;
-    --card: #ffffffCC;
-    --shadow: 0 10px 30px rgba(0, 0, 0, .12);
-    --safe-top: env(safe-area-inset-top);
-    --safe-right: env(safe-area-inset-right);
-    --safe-bottom: env(safe-area-inset-bottom);
-    --safe-left: env(safe-area-inset-left);
-}
-
-* {
-    box-sizing: border-box;
-}
-
 html,
 body {
     height: 100%;
-}
-
-body {
     margin: 0;
-    font-family: ui-rounded, "SF Pro Rounded", "SF Pro", -apple-system, system-ui, "Segoe UI", Roboto, "Noto Sans Thai", "Noto Sans", sans-serif;
-    color: var(--text);
-    background: var(--bg);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.app {
-    position: relative;
-    min-height: 100svh;
-    padding:
-        calc(16px + var(--safe-top)) calc(16px + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(16px + var(--safe-left));
-    display: grid;
-    place-items: center;
-    overflow: hidden;
+    font-family: 'Prompt', sans-serif;
+    background: linear-gradient(180deg, #ffe0eb, #ffc6dc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card {
-    width: min(92vw, 520px);
-    background: var(--card);
-    backdrop-filter: blur(8px) saturate(120%);
+    width: 90%;
+    max-width: 400px;
+    background: white;
     border-radius: 20px;
-    box-shadow: var(--shadow);
-    padding: clamp(18px, 4vw, 28px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     text-align: center;
-    position: relative;
-    isolation: isolate;
-    animation: float 3.5s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
 }
 
-.hbd-title {
-    margin: 6px 0 10px;
-    font-size: clamp(24px, 5vw, 36px);
-    line-height: 1.2;
-    letter-spacing: .2px;
+.title {
+    margin: 0;
+    color: #ff4b93;
+    font-size: 1.6em;
+    font-weight: bold;
 }
 
-.hbd-title .name {
-    color: var(--accent);
-    font-weight: 900;
-}
-
-.tap-hint {
-    margin: 10px 0 6px;
-    opacity: .8;
-    font-size: clamp(14px, 3.8vw, 16px);
+.name {
+    color: #ff7ab3;
 }
 
 .cake {
-    margin: 6px auto 10px;
-    width: min(70vw, 260px);
+    width: 160px;
+    margin: 20px auto;
+    display: block;
+    animation: bounce 2s ease-in-out infinite;
 }
 
-.cake-svg {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .18));
-    animation: bounce 2.6s ease-in-out infinite;
-}
-
-.flame {
-    transform-origin: 100px 18px;
-    animation: flicker .9s ease-in-out infinite;
-}
-
-/* บอลลูนพื้นหลัง */
-.balloons {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.balloon {
-    position: absolute;
-    width: 70px;
-    height: 90px;
-    border-radius: 50% 50% 48% 52%;
-    box-shadow: inset 0 10px 20px rgba(255, 255, 255, .6);
-    opacity: .75;
-    animation: rise linear infinite;
-}
-
-.balloon span {
-    position: absolute;
-    left: 50%;
-    top: 85%;
-    width: 2px;
-    height: 80px;
-    background: rgba(0, 0, 0, .12);
-}
-
-.b1 {
-    left: 6%;
-    bottom: -15%;
-    background: #ff8fb6;
-    animation-duration: 18s;
-}
-
-.b2 {
-    left: 26%;
-    bottom: -22%;
-    background: #ffc773;
-    width: 60px;
-    height: 78px;
-    animation-duration: 20s;
-    animation-delay: 2s;
-}
-
-.b3 {
-    right: 18%;
-    bottom: -18%;
-    background: #8fd3ff;
-    width: 64px;
-    height: 82px;
-    animation-duration: 22s;
-    animation-delay: 1s;
-}
-
-.b4 {
-    right: 3%;
-    bottom: -25%;
-    background: #b28dff;
-    width: 56px;
-    height: 74px;
-    animation-duration: 19s;
-    animation-delay: 3s;
-}
-
-/* ข้อความอวยพร (ซ่อนก่อน) */
-.wish {
+.tap-text {
+    color: #777;
+    font-size: 0.9em;
     margin-top: 10px;
-    font-size: clamp(16px, 4.2vw, 18px);
+}
+
+.wish {
+    display: none;
+    margin-top: 20px;
+    background: #fff7fb;
+    border-radius: 15px;
+    padding: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
     line-height: 1.6;
-    background: #fff;
-    border-radius: 14px;
-    padding: 14px 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
-    transform: translateY(10px);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform .5s ease, opacity .5s ease;
+    animation: fadeIn 1s forwards;
 }
 
-/* ปุ่มรีเซ็ต (ซ่อนก่อน) */
-.reset {
-    position: fixed;
-    right: calc(16px + var(--safe-right));
-    bottom: calc(20px + var(--safe-bottom));
-    appearance: none;
-    border: 0;
-    border-radius: 999px;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #ff7fb0, #ff9fd1);
-    color: #fff;
-    box-shadow: 0 10px 24px rgba(255, 127, 176, .4);
-    transform: translateY(20px);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform .35s ease, opacity .35s ease;
-}
-
-/* เมื่อเผยข้อความ */
-.app.reveal .wish {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.app.reveal .tap-hint {
-    opacity: 0;
-}
-
-.app.reveal .reset {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-/* ลดการเคลื่อนไหวสำหรับผู้ใช้ตั้งค่า reduce-motion */
-@media (prefers-reduced-motion: reduce) {
-
-    .card,
-    .cake-svg,
-    .flame,
-    .balloon {
-        animation: none !important;
-    }
-}
-
-/* keyframes */
 @keyframes float {
 
     0%,
@@ -225,7 +64,7 @@ body {
     }
 
     50% {
-        transform: translateY(-6px);
+        transform: translateY(-5px);
     }
 }
 
@@ -233,34 +72,22 @@ body {
 
     0%,
     100% {
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
 
     50% {
-        transform: translateY(-3px) scale(1.01);
+        transform: translateY(-10px);
     }
 }
 
-@keyframes flicker {
-
-    0%,
-    100% {
-        transform: scale(1) rotate(0deg);
-        filter: drop-shadow(0 0 8px #ffd54d);
-    }
-
-    50% {
-        transform: scale(1.05) rotate(-3deg);
-        filter: drop-shadow(0 0 14px #ffea7a);
-    }
-}
-
-@keyframes rise {
+@keyframes fadeIn {
     from {
-        transform: translateY(0)
+        opacity: 0;
+        transform: scale(0.95);
     }
 
     to {
-        transform: translateY(-140vh)
+        opacity: 1;
+        transform: scale(1);
     }
 }
