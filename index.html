@@ -1,448 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>HBD 🎂</title>
-    <style>
-        :root {
-            --bg1: #fff7fb;
-            /* very light pink */
-            --bg2: #f0f9ff;
-            /* very light blue */
-            --paper: #ffffff;
-            --ink: #2b2b2b;
-            --muted: #666;
-            --primary: #ff7ab6;
-            /* pink */
-            --secondary: #7ac6ff;
-            /* sky */
-            --accent: #ffd166;
-            /* warm yellow */
-            --good: #88e0a7;
-            /* mint */
-            --shadow: 0 10px 30px rgba(0, 0, 0, .08);
-            --radius: 22px;
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        html,
-        body {
-            height: 100%
-        }
-
-        body {
-            margin: 0;
-            font-family: "Segoe UI", system-ui, -apple-system, "Noto Sans Thai", sans-serif;
-            color: var(--ink);
-            background: radial-gradient(1200px 600px at 20% -10%, var(--bg2), transparent),
-                radial-gradient(1200px 600px at 120% 110%, var(--bg1), transparent),
-                linear-gradient(180deg, #fff 0%, #fff 100%);
-            overflow-x: hidden;
-        }
-
-        .floating-balloon {
-            position: absolute;
-            opacity: .8;
-            animation: float 8s ease-in-out infinite;
-            filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .08));
-            z-index: 0;
-        }
-
-        .floating-balloon:nth-child(1) {
-            left: 3%;
-            top: 6%;
-            animation-delay: 0s;
-        }
-
-        .floating-balloon:nth-child(2) {
-            right: 5%;
-            top: 10%;
-            animation-delay: 1.2s;
-        }
-
-        .floating-balloon:nth-child(3) {
-            left: 8%;
-            bottom: 8%;
-            animation-delay: 2.1s;
-        }
-
-        .floating-balloon:nth-child(4) {
-            right: 8%;
-            bottom: 12%;
-            animation-delay: .6s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0)
-            }
-
-            50% {
-                transform: translateY(-16px)
-            }
-        }
-
-        .wrap {
-            display: grid;
-            place-items: center;
-            min-height: 100%;
-            padding: 28px;
-            position: relative;
-        }
-
-        .card {
-            position: relative;
-            width: min(900px, 94vw);
-            background: var(--paper);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: clamp(18px, 3.5vw, 32px);
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: #f8fbff;
-            color: #356;
-            font-size: 14px;
-        }
-
-        .title {
-            font-size: clamp(28px, 5.2vw, 52px);
-            line-height: 1.1;
-            margin: 14px 0 8px;
-            letter-spacing: .3px;
-        }
-
-        .subtitle {
-            color: var(--muted);
-            margin: 0 0 22px;
-            font-size: clamp(14px, 1.9vw, 18px)
-        }
-
-        .hero {
-            display: grid;
-            grid-template-columns: 1.1fr .9fr;
-            gap: clamp(16px, 3vw, 28px);
-            align-items: center;
-        }
-
-        @media (max-width:800px) {
-            .hero {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .cake-area {
-            position: relative;
-            aspect-ratio: 1.1 / 1;
-            width: 100%;
-            display: grid;
-            place-items: center;
-        }
-
-        svg {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 18px 0 10px;
-        }
-
-        .input {
-            background: #f7f8fb;
-            border: 1px solid #e9edf3;
-            border-radius: 14px;
-            padding: 10px 14px;
-            font-size: 16px;
-            outline: 0;
-            color: #223;
-        }
-
-        .input:focus {
-            border-color: #c8d8ff;
-            box-shadow: 0 0 0 4px #c8d8ff33;
-        }
-
-        .btn {
-            cursor: pointer;
-            border: 0;
-            border-radius: 14px;
-            padding: 12px 16px;
-            font-weight: 600;
-            background: var(--primary);
-            color: white;
-            transition: transform .05s ease, box-shadow .2s ease;
-            box-shadow: 0 6px 16px #ff7ab633;
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .btn.secondary {
-            background: var(--secondary);
-            box-shadow: 0 6px 16px #7ac6ff44;
-        }
-
-        .wish {
-            font-size: clamp(16px, 2vw, 20px);
-            background: #fff7fb;
-            border: 1px dashed #ffd1ea;
-            padding: 14px 16px;
-            border-radius: 14px;
-        }
-
-        footer {
-            margin-top: 18px;
-            font-size: 13px;
-            color: #7b7b7b;
-            text-align: center;
-        }
-
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .piece {
-            position: absolute;
-            width: 10px;
-            height: 14px;
-            opacity: 0;
-            animation: fall 2.8s ease-out forwards;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-20px) rotate(0);
-                opacity: 0
-            }
-
-            8% {
-                opacity: 1
-            }
-
-            100% {
-                transform: translateY(100vh) rotate(540deg);
-                opacity: 0
-            }
-        }
-
-        /* Candle flame flicker */
-        .flame {
-            transform-origin: 50% 90%;
-            animation: flicker .12s infinite alternate;
-        }
-
-        @keyframes flicker {
-            from {
-                transform: scaleY(1) translateX(0)
-            }
-
-            to {
-                transform: scaleY(.92) translateX(1px)
-            }
-        }
-    </style>
+    <title>Happy Birthday Toey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ff99cc" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-    <!-- Floating balloons (decor) -->
-    <svg class="floating-balloon" width="120" viewBox="0 0 120 220" aria-hidden="true">
-        <defs>
-            <linearGradient id="b1" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#ffd1ea" />
-                <stop offset="1" stop-color="#ff9bc9" />
-            </linearGradient>
-        </defs>
-        <ellipse cx="60" cy="70" rx="50" ry="65" fill="url(#b1)" />
-        <path d="M60 135 C 50 155, 70 165, 60 185" stroke="#ff9bc9" stroke-width="3" fill="none" />
-        <circle cx="60" cy="133" r="10" fill="#ffd1ea" />
-    </svg>
-    <svg class="floating-balloon" width="130" viewBox="0 0 120 220" aria-hidden="true">
-        <defs>
-            <linearGradient id="b2" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#bfe7ff" />
-                <stop offset="1" stop-color="#7ac6ff" />
-            </linearGradient>
-        </defs>
-        <ellipse cx="60" cy="70" rx="50" ry="65" fill="url(#b2)" />
-        <path d="M60 135 C 50 155, 70 165, 60 185" stroke="#7ac6ff" stroke-width="3" fill="none" />
-        <circle cx="60" cy="133" r="10" fill="#bfe7ff" />
-    </svg>
-    <svg class="floating-balloon" width="120" viewBox="0 0 120 220" aria-hidden="true">
-        <defs>
-            <linearGradient id="b3" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#ffeab2" />
-                <stop offset="1" stop-color="#ffd166" />
-            </linearGradient>
-        </defs>
-        <ellipse cx="60" cy="70" rx="50" ry="65" fill="url(#b3)" />
-        <path d="M60 135 C 50 155, 70 165, 60 185" stroke="#ffd166" stroke-width="3" fill="none" />
-        <circle cx="60" cy="133" r="10" fill="#ffeab2" />
-    </svg>
-    <svg class="floating-balloon" width="120" viewBox="0 0 120 220" aria-hidden="true">
-        <defs>
-            <linearGradient id="b4" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#c9f2d8" />
-                <stop offset="1" stop-color="#88e0a7" />
-            </linearGradient>
-        </defs>
-        <ellipse cx="60" cy="70" rx="50" ry="65" fill="url(#b4)" />
-        <path d="M60 135 C 50 155, 70 165, 60 185" stroke="#88e0a7" stroke-width="3" fill="none" />
-        <circle cx="60" cy="133" r="10" fill="#c9f2d8" />
-    </svg>
+    <canvas id="confetti" aria-hidden="true"></canvas>
 
-    <div class="wrap">
-        <div class="card">
-            <span class="badge">🎈 HBD Mini Site</span>
-            <h1 class="title">สุขสันต์วันเกิด <span id="name">เพื่อนที่น่ารัก</span> 🎂</h1>
-            <p class="subtitle">ขอให้วันนี้เต็มไปด้วยเสียงหัวเราะ เค้กอร่อย ๆ และเรื่องดี ๆ ทั้งวัน</p>
-
-            <section class="hero">
-                <div class="cake-area">
-                    <!-- Cute SVG Cake -->
-                    <svg viewBox="0 0 420 360" role="img" aria-label="Birthday cake illustration">
-                        <!-- plate -->
-                        <ellipse cx="210" cy="330" rx="150" ry="18" fill="#e9edf3" />
-                        <!-- cake base -->
-                        <rect x="80" y="200" width="260" height="90" rx="24" fill="#ffd8a8" />
-                        <rect x="90" y="210" width="240" height="70" rx="18" fill="#ffe8c9" />
-                        <!-- cream drips -->
-                        <path
-                            d="M90 210 h240 v12 c-6 20-24 20-36 0 -10 16-24 16-34 0 -10 14-24 14-34 0 -8 14-22 14-32 0 -10 16-24 16-36 0 -12 18-26 18-32 0 v-12z"
-                            fill="#ffb4d0" />
-                        <!-- top -->
-                        <rect x="100" y="160" width="220" height="52" rx="16" fill="#ffe3f0" />
-                        <path
-                            d="M100 160 h220 v16 c-12 18-28 18-40 0 -12 16-26 16-38 0 -12 16-26 16-38 0 -12 16-26 16-38 0 -12 18-28 18-40 0 v-16z"
-                            fill="#ffc2dd" />
-                        <!-- candles -->
-                        <g id="candles" transform="translate(0,-6)">
-                            <g transform="translate(150,140)">
-                                <rect x="-8" y="0" width="16" height="40" rx="4" fill="#7ac6ff" />
-                                <circle class="flame" cx="0" cy="-6" r="7" fill="#ffd166" />
-                            </g>
-                            <g transform="translate(210,140)">
-                                <rect x="-8" y="0" width="16" height="40" rx="4" fill="#88e0a7" />
-                                <circle class="flame" cx="0" cy="-6" r="7" fill="#ffd166" />
-                            </g>
-                            <g transform="translate(270,140)">
-                                <rect x="-8" y="0" width="16" height="40" rx="4" fill="#ff9bc9" />
-                                <circle class="flame" cx="0" cy="-6" r="7" fill="#ffd166" />
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                <div>
-                    <div class="controls">
-                        <input id="nameInput" class="input" placeholder="พิมพ์ชื่อคนที่จะอวยพร" />
-                        <button class="btn" id="btnBlow">เป่าเทียน ✨</button>
-                        <button class="btn secondary" id="btnConfetti">โปรยกระดาษสี 🎉</button>
-                    </div>
-                    <p class="wish" id="wish">ขอให้มีสุขภาพแข็งแรง เจอเรื่องดี ๆ ทุกวัน สมหวังในสิ่งที่ตั้งใจ
-                        และยิ้มได้กว้าง ๆ ตลอดปีนะ 🩷</p>
-                    <div class="controls">
-                        <input id="wishInput" class="input" style="flex:1; min-width:240px"
-                            placeholder="ปรับข้อความอวยพรได้ที่นี่" />
-                    </div>
-                </div>
-            </section>
-
-            <footer>
-                ทำด้วยความรัก · สามารถบันทึกหน้าเว็บนี้เป็นไฟล์เดียวแล้วส่งให้เพื่อนได้เลย 💌
-            </footer>
+    <main id="app" class="app" role="main" tabindex="0" aria-label="การ์ด Happy Birthday สำหรับ เต้ย">
+        <!-- พื้นหลังกลิตเตอร์และบอลลูน -->
+        <div class="balloons" aria-hidden="true">
+            <div class="balloon b1"><span></span></div>
+            <div class="balloon b2"><span></span></div>
+            <div class="balloon b3"><span></span></div>
+            <div class="balloon b4"><span></span></div>
         </div>
-        <div class="confetti" aria-hidden="true" id="confetti"></div>
-    </div>
 
-    <script>
-        const $ = (s) => document.querySelector(s);
-        const nameEl = $('#name');
-        const nameInput = $('#nameInput');
-        const wishEl = $('#wish');
-        const wishInput = $('#wishInput');
-        const btnBlow = $('#btnBlow');
-        const btnConfetti = $('#btnConfetti');
-        const confetti = $('#confetti');
+        <!-- การ์ดหลัก -->
+        <section class="card" aria-live="polite">
+            <h1 class="hbd-title">Happy Birthday, <span class="name">Toey</span> 🎉</h1>
 
-        nameInput?.addEventListener('input', () => {
-            nameEl.textContent = nameInput.value.trim() || 'เพื่อนที่น่ารัก';
-        });
-        wishInput?.addEventListener('input', () => {
-            wishEl.textContent = wishInput.value.trim() || 'ขอให้มีสุขภาพแข็งแรง เจอเรื่องดี ๆ ทุกวัน สมหวังในสิ่งที่ตั้งใจ และยิ้มได้กว้าง ๆ ตลอดปีนะ 🩷';
-        });
+            <div class="cake" role="img" aria-label="เค้กวันเกิดมีเทียน">
+                <!-- เค้ก (SVG inline เพื่อความคมชัดบนมือถือ) -->
+                <svg viewBox="0 0 200 180" class="cake-svg">
+                    <defs>
+                        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#ffcad4" />
+                            <stop offset="100%" stop-color="#ffa6c9" />
+                        </linearGradient>
+                        <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#fff0f6" />
+                            <stop offset="100%" stop-color="#ffd6e7" />
+                        </linearGradient>
+                    </defs>
 
-        function createConfettiBurst(centerX = window.innerWidth / 2) {
-            const colors = ['#ff9bc9', '#7ac6ff', '#ffd166', '#88e0a7', '#b39ddb'];
-            for (let i = 0; i < 80; i++) {
-                const p = document.createElement('div');
-                p.className = 'piece';
-                const size = 6 + Math.random() * 10;
-                p.style.width = size + 'px';
-                p.style.height = (size * 1.2) + 'px';
-                p.style.left = (centerX + (Math.random() * 160 - 80)) + 'px';
-                p.style.top = (-20 + Math.random() * 20) + 'px';
-                p.style.background = colors[(Math.random() * colors.length) | 0];
-                p.style.transform = `translateY(${-20 - Math.random() * 80}px)`;
-                p.style.animationDelay = (Math.random() * 0.4) + 's';
-                confetti.appendChild(p);
-                setTimeout(() => p.remove(), 3200);
-            }
-        }
-        btnConfetti?.addEventListener('click', () => createConfettiBurst());
+                    <!-- ฐานเค้ก -->
+                    <rect x="20" y="70" width="160" height="60" rx="12" fill="url(#g1)" />
+                    <rect x="35" y="40" width="130" height="45" rx="10" fill="url(#g2)" />
 
-        // Auto confetti on load + every 10s so the page feels lively
-        window.addEventListener('load', () => {
-            createConfettiBurst();
-            setInterval(() => createConfettiBurst(), 10000);
-        });
+                    <!-- ลายหยดครีม -->
+                    <path d="M35,70
+                   q10,10 20,0
+                   q10,-10 20,0
+                   q10,10 20,0
+                   q10,-10 20,0
+                   q10,10 20,0
+                   q10,-10 20,0" fill="#ffe3ef" />
 
-        btnBlow?.addEventListener('click', () => {
-            // hide flames
-            document.querySelectorAll('.flame').forEach(f => {
-                f.style.transition = 'opacity .35s ease, transform .35s ease';
-                f.style.opacity = '0';
-                f.style.transform = 'scale(.2) translateY(8px)';
-            });
-            createConfettiBurst(window.innerWidth * 0.35);
-            // re-light after 3s
-            setTimeout(() => {
-                document.querySelectorAll('.flame').forEach(f => {
-                    f.style.opacity = '1';
-                    f.style.transform = '';
-                });
-            }, 3000);
-        });
-        // Prefill from URL params (?name=...&wish=...)
-        const params = new URLSearchParams(location.search);
-        if (params.get('name')) { nameInput.value = params.get('name'); nameEl.textContent = params.get('name'); }
-        if (params.get('wish')) { wishInput.value = params.get('wish'); wishEl.textContent = params.get('wish'); }
-    </script>
+                    <!-- เทียน -->
+                    <rect x="95" y="15" width="10" height="25" rx="3" fill="#87e0ff" />
+                    <!-- เปลวไฟ -->
+                    <path class="flame" d="M100,12
+                   q8,8 0,16
+                   q-8,-8 0,-16z" fill="#ffcc33" />
+                </svg>
+            </div>
+
+            <p class="tap-hint">แตะที่หน้าจอเพื่อเปิดคำอวยพร 💝</p>
+
+            <!-- ข้อความอวยพร (ซ่อนจนกว่าจะแตะ) -->
+            <div class="wish" id="wish" aria-hidden="true">
+                <p>
+                    เต้ย สุขสันต์วันเกิดปีที่ <strong>23</strong> คับผม 🎂<br />
+                    ขอให้มีความสุข สุขภาพแข็งแรง การเรียนการงานปังๆ
+                    มีรอยยิ้มทุกวันนะ!
+                </p>
+            </div>
+        </section>
+
+        <!-- ปุ่มรีเซ็ต (โผล่หลังเผยข้อความ) -->
+        <button class="reset" id="resetBtn" type="button" aria-label="เล่นใหม่อีกครั้ง">เล่นอีกครั้ง</button>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
